@@ -2,7 +2,7 @@
 
 #Input: Port list such as 2555, 8080, 80
 # e.g. ./killProcessOnPort 2555 8080 80
-# Syntax ./killProcessOnPort port[,port...]
+# Syntax ./killProcessOnPort port[ port...]
 
 #Steps:
 
