@@ -9,5 +9,6 @@
 import Foundation
 
 protocol PrtRESTResultProcessor : class {
-    func processRESTResults(createResult : NSData!);
+    func processRESTResults(restResult : NSData!, error : NSError!);
+    func getFinalResults() -> [Any!];
 }

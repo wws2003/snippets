@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol PrtRESTUpdateObject : class {
-    func toJSONParamsString() -> String!;
+protocol PrtRESTUpdateObject : PrtRESTAuthorizationObj {
     func getUpdateURL() -> String!;
+    func toJSONParamsString() -> String!;
 }

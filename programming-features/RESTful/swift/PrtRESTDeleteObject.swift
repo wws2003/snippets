@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol PrtRESTDeleteObject : class {
+protocol PrtRESTDeleteObject : PrtRESTAuthorizationObj {
     func getDeleteURL() -> String!;
 }

@@ -8,6 +8,17 @@
 
 import Foundation
 
-protocol PrtRESTRetrieveObject : class {
+enum RETRIEVE_DATA_TYPE : Int{
+    case JSON = 0;
+    case IMAGE_JPEG = 1;
+}
+
+protocol PrtRESTRetrieveObject : PrtRESTAuthorizationObj {
     func getRetrieveURL() -> String!;
+    
+    //This method is for cases of POST request
+    func toJSONParamsString() -> String!;
+    
+    //Get type of data expected to retrieve
+    func getRetrieveDataType() -> RETRIEVE_DATA_TYPE;
 }
