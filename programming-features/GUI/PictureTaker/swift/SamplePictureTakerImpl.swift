@@ -12,19 +12,21 @@ import MobileCoreServices
 class SamplePictureTakerImpl : NSObject, PrtPictureTaker, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private var m_takingPictureDelegate : PrtTakingPictureDelegate!;
+    
     private var m_pictureSourceType : UIImagePickerControllerSourceType! = UIImagePickerControllerSourceType.PhotoLibrary;
     
-    init(takingPictureDelegate : PrtTakingPictureDelegate!, useCamera : Bool = false) {
+    deinit {
+        NSLog("SamplePictureTakerImpl deinit");
+    }
+    
+    init(takingPictureDelegate : PrtTakingPictureDelegate!) {
         m_takingPictureDelegate = takingPictureDelegate;
-        if(useCamera) {
-            m_pictureSourceType = UIImagePickerControllerSourceType.Camera;
-        }
     }
     
     //Conform to PrtPictureTaker
-    func getPicturePickerController() -> UIImagePickerController! {
+    func getPicturePickerController(useCamara: Bool) -> UIImagePickerController! {
         let uiImagePickerController : UIImagePickerController! = UIImagePickerController();
-        uiImagePickerController.sourceType = m_pictureSourceType;
+        uiImagePickerController.sourceType = useCamara ? UIImagePickerControllerSourceType.Camera : UIImagePickerControllerSourceType.PhotoLibrary;
         uiImagePickerController.mediaTypes = [kUTTypeImage];
         uiImagePickerController.delegate = self;
         return uiImagePickerController;
@@ -32,10 +34,10 @@ class SamplePictureTakerImpl : NSObject, PrtPictureTaker, UIImagePickerControlle
     
     //Conform to UIImagePickerControllerDelegate
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        let mediaType : String! = info[UIImagePickerControllerMediaType] as String!;
+        let mediaType : String! = (info[UIImagePickerControllerMediaType] as? String!)!;
         NSLog("Taken media type :%@", mediaType);
-        if(mediaType == kUTTypeImage) {
-            let uiImage = info[UIImagePickerControllerOriginalImage] as UIImage!;
+        if(mediaType == (kUTTypeImage as String)) {
+            let uiImage = (info[UIImagePickerControllerOriginalImage] as? UIImage!)!;
             if(uiImage != nil && m_takingPictureDelegate != nil) {
                 m_takingPictureDelegate.pictureTaken(uiImage);
             }
