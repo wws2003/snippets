@@ -12,9 +12,9 @@ import Foundation
     private var m_taskDelegate : PrtAsyncTaskDelegate!;
     private unowned var m_dispatchQueueService : PrtDispatchQueueService;
     
-    init(taskDelegate : PrtAsyncTaskDelegate!) {
+    init(taskDelegate : PrtAsyncTaskDelegate!, dispatchQueueService : PrtDispatchQueueService) {
         m_taskDelegate = taskDelegate;
-        m_dispatchQueueService = ServiceLocator.getInstance().getDispatchQueueService();
+        m_dispatchQueueService = dispatchQueueService;
     }
     
     func executeAsyncTask(task : PrtTask) {
@@ -48,8 +48,12 @@ import Foundation
         task?.execute();
         var mainDispatchQueue : dispatch_queue_t = dispatch_get_main_queue();
         if(m_taskDelegate != nil) {
-            var block : dispatch_block_t! = {() -> Void in self.m_taskDelegate.taskDidExecute()};
+            var block : dispatch_block_t! = {() -> Void in self.executeTaskDelegateInMainThread(task)};
             dispatch_async(mainDispatchQueue, block);
         }
+    }
+    
+    func executeTaskDelegateInMainThread(task : PrtTask!) {
+        m_taskDelegate.taskDidExecute(task);
     }
 }
