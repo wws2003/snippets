@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Launch Java Solution",
+            "request": "launch",
+            "mainClass": "Solution",
+            "projectName": "programming_solutions_8818a1f1"
+        },
+        {
             "name": "g++ - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
