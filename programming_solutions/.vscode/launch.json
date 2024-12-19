@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Java Solution",
+            "name": "Solution",
             "request": "launch",
             "mainClass": "Solution",
             "projectName": "programming_solutions_8818a1f1"
